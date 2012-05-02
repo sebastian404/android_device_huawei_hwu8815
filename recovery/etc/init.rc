@@ -15,6 +15,7 @@ on early-init
 on init
     # setup enviroment
     export PATH /sbin
+    export LD_LIBRARY_PATH .:/sbin
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
@@ -25,7 +26,7 @@ on init
     mkdir /system 0771 system system
     mkdir /data 0771 system system
     mkdir /cust 0771 system system
-    mkdir /HWUserData 0771 system system
+    mkdir /datadata 0771 system system
     mkdir /cache 0770 system cache
     mkdir /etc 0770 root root
     mkdir /tmp 01777 root root
