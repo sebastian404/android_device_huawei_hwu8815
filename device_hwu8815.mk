@@ -14,8 +14,7 @@ else
 endif
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel\
-    device/huawei/hwu8815/recovery/sbin/rmt_storage_recovery:/root/sbin/rmt_storage_recovery
+    $(LOCAL_KERNEL):kernel
 
 $(call inherit-product, build/target/product/full.mk)
 

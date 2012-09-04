@@ -7,6 +7,7 @@
 #2011-05-28 sebastian404    increated ramdisk for kernel replacment stuffs
 #2011-08-09 sebastian404    since everyone lubs it so, added in ueventd
 #2012-04-14 sebastian404    initial build for U8815 / Huawei Ascend G300
+#2012-05-07 sebastian404    cleanup of recovery images
 ##########################################
 
 on early-init
@@ -15,9 +16,11 @@ on early-init
 on init
     # setup enviroment
     export PATH /sbin
-    export LD_LIBRARY_PATH .:/sbin
-    export ANDROID_ROOT /system
+    export LD_LIBRARY_PATH .:/sbin:/lib
+    export ANDROID_ROOT /
     export ANDROID_DATA /data
+    export ANDROID_DATADTA /datadata
+    export ANDROID_CUST /cust
     export EXTERNAL_STORAGE /sdcard
 
     # setup recovery filesystems
@@ -25,14 +28,11 @@ on init
     mkdir /sd-ext 0771 system system
     mkdir /system 0771 system system
     mkdir /data 0771 system system
-    mkdir /cust 0771 system system
     mkdir /datadata 0771 system system
+    mkdir /cust 0771 system system
     mkdir /cache 0770 system cache
     mkdir /etc 0770 root root
     mkdir /tmp 01777 root root
-    
-    # wait for cache to be mounted
-    wait /dev/block/mmcblk0p6
 
 on boot
     ifup lo
@@ -44,7 +44,7 @@ on boot
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "ondemand"
 
     # mount inital filesystems
-    mount tmpfs tmpfs /tmp
+    mount tmpfs tmpfs /tmp size=64m
     wait /dev/block/mmcblk1p1
     mount vfat /dev/block/mmcblk1p1 /sdcard rw
 
@@ -54,9 +54,6 @@ on boot
 
 service ueventd /sbin/ueventd
     critical
-
-service rmt_storage /sbin/rmt_storage_recovery
-    user root
 
 service recovery /sbin/recovery
     oneshot

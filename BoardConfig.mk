@@ -1,11 +1,11 @@
-USE_CAMERA_STUB := true
+USE_CAMERA_STUB := false
 
 # inherit from the proprietary version
 -include vendor/huawei/hwu8815/BoardConfigVendor.mk
 
 TARGET_NO_BOOTLOADER := true
 
-TARGET_BOARD_PLATFORM := msm7x30
+TARGET_BOARD_PLATFORM := msm7x27a
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
 TARGET_CPU_ABI := armeabi-v7a
@@ -14,6 +14,7 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 TARGET_BOOTLOADER_BOARD_NAME := hwu8815
+
 BOARD_KERNEL_CMDLINE := console=ttyMSM1,115200
 BOARD_KERNEL_BASE := 0x00200000
 BOARD_PAGE_SIZE := 0x00001000
@@ -31,7 +32,8 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x0AF00000
 BOARD_FLASH_BLOCK_SIZE := 0x00020000
 
 TARGET_PREBUILT_KERNEL := device/huawei/hwu8815/recovery_kernel
-TARGET_RECOVERY_INITRC := device/huawei/hwu8815/recovery/etc/init.rc
+TARGET_RECOVERY_INITRC := device/huawei/hwu8815/recovery/init.rc
+TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
 
 BOARD_DATA_DEVICE := /dev/block/mmcblk0p13
 BOARD_DATA_FILESYSTEM := ext4
@@ -60,4 +62,10 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun
 
 BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
 
+#twrp
+DEVICE_RESOLUTION := 480x800
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+SP1_NAME := "cust"
+SP1_BACKUP_METHOD := files
+SP1_MOUNTABLE := 1
 
